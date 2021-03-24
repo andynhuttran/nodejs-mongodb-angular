@@ -1,21 +1,27 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="Content-Style-Type" content="text/css" /> 
-    <meta name="viewport" content="width=device-width">
-    <title>observables.html</title>
-    <!-- <link href="/library/skin/tool_base.css" type="text/css" rel="stylesheet" media="all" />
+
+<head>
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="viewport" content="width=device-width">
+  <title>observables.html</title>
+  <!-- <link href="/library/skin/tool_base.css" type="text/css" rel="stylesheet" media="all" />
     <link href="/library/skin/morpheus-default/tool.css" type="text/css" rel="stylesheet" media="all" />
     <script type="text/javascript" src="/library/js/headscripts.js"></script> -->
-    <style>body { padding: 5px !important; }</style>
-  </head>
-  <body>
-<script src="https://unpkg.com/rxjs/bundles/rxjs.umd.min.js"></script>
-<!-- <p>paragraph</p> -->
-<script>
+  <style>
+    body {
+      padding: 5px !important;
+    }
+  </style>
+</head>
+
+<body>
+  <script src="https://unpkg.com/rxjs/bundles/rxjs.umd.min.js"></script>  
+  <!-- <p>paragraph</p> -->
+  <script>
     const { Observable, of, from } = rxjs;
     const { map, filter } = rxjs.operators;
-    
+
 
     // var obs = Observable.create(function (observer) {
     //      for (let i = 0; i < 9; i++) {
@@ -64,7 +70,7 @@
     //                         topic: `${obj.name} ${obj.topic}`
     //                       }
     //                     )
-                            
+
     //                     )
     //     )
     //     .subscribe((obj) => {
@@ -111,14 +117,14 @@
     // setTimeout(() => { myObservable.next('CS572 hello'); }, 3000);
     // myObservable.subscribe(value => console.log(value));
 
-</script>
+  </script>
 
 
-<!-- 
+  <!-- 
 <button>Click me</button>
 <div></div> -->
 
-<script>
+  <script>
     // var button = document.querySelector('button');
     // var div = document.querySelector('div');
 
@@ -129,10 +135,10 @@
     // myObservable.subscribe((value) => div.textContent = value);
 
     // button.addEventListener('click', () => myObservable.next('Clicked!'));
-</script>
+  </script>
 
-<!-- <input/> -->
-<script>
+  <!-- <input/> -->
+  <script>
     // const { fromEvent } = rxjs;
     // const { map, throttleTime, debounceTime, take, pluck } = rxjs.operators;
 
@@ -164,12 +170,12 @@
     //     )
     //     .subscribe(value => console.log(`Check if user exists: ${value}`));
 
-</script>
+  </script>
 
 
 
 
-<script>
+  <script>
     // const { interval, of } = rxjs;
     // const { map, flatMap, mergeAll, take } = rxjs.operators;
 
@@ -182,7 +188,33 @@
     // )
     // .subscribe(x => console.log(x));
 
-</script>
+    function countdown(n, text1, text2) {
+      return Observable.create(obs => {
+        obs.next(text1);
 
-  </body>
+        const id = setInterval(() => {
+          
+          if (n <= 0) {
+            obs.next(text2);
+            clearTimeout(id);
+            obs.complete();
+          }
+          else {
+            obs.next(n);
+          }
+          n--;
+        }, 1000)
+      })
+    }
+
+    countdown(5, "Welcome...", "Intro..").subscribe(
+      (m) => console.log(m),
+      null,
+      () => console.log("Done")
+    );
+
+  </script>
+
+</body>
+
 </html>
