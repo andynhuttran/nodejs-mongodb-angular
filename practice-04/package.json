@@ -1,0 +1,19 @@
+{
+  "name": "reactive-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "reactive",
+    "server"
+  ],
+  "author": "andy nhut tran",
+  "license": "ISC",
+  "dependencies": {
+    "moment": "^2.29.1",
+    "rxjs": "^6.6.6"
+  }
+}
