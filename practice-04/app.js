@@ -1,15 +1,18 @@
 const { Subject } = require('rxjs');
 const server = require('http').createServer();
 const url = require('url');
-const moment = require('moment');
 const {fork} = require('child_process');
+const CONSTANT = require('./lib/constants');
+const utils = require('./lib/utils');
 
 let subject = new Subject();
 
-let port = 4000
+let port = CONSTANT.PORT;
 
 server.on("request", handleRequest);
-server.listen(port, () => console.log(`Server is started at ${port}`));
+server.listen(port, () => 
+    console.log(`Server is started in port: ${port} at ${utils.getCurrentTime()}`)
+);
 
 function handleRequest(req, res){
     if (req.url === '/favicon.ico') {
@@ -21,9 +24,8 @@ function handleRequest(req, res){
 subject.subscribe(logInfo);
 subject.subscribe(responseToUser);
 
-
 function logInfo(){
-    console.log("A request at: " + moment().format('MMMM Do YYYY, h:mm:ss a'));
+    console.log("A request at: " + utils.getCurrentTime());
 }
 
 function responseToUser(obj){
@@ -36,8 +38,12 @@ function responseToUser(obj){
     childProcess.send(n); //send request to a child
 
     //listen feedback from child
-    childProcess.on('message', (result) => {        
-        obj.res.end(`Hello world: ${result}`);
+    childProcess.on('message', (result) => {  
+        feedbackToClient(obj.res, result.status_code, JSON.stringify(result));
     });
 }
 
+function feedbackToClient(response, status_code, json){
+    response.writeHead(status_code, {"Content-Type": "application/json"});
+    response.end(json);
+}
