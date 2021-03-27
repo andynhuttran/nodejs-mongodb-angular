@@ -4,6 +4,7 @@ const { map } = require('rxjs/operators');
 
 async function getUsers(num = 10, callback) {
     let endPoint = `https://randomuser.me/api/?results=${num}`;
+
     let response = await superagent.get(endPoint);    
 
     var arr = [];
@@ -17,7 +18,9 @@ async function getUsers(num = 10, callback) {
             })
         )
         .subscribe(
-            (obj) => arr.push(obj)        
+            (obj) => {
+                arr.push(obj);                
+            }
         );
     callback(arr);
 }
