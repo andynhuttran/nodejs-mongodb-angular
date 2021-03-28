@@ -5,13 +5,13 @@ const { map } = require('rxjs/operators');
 async function getUsers(num = 10, callback) {
     let endPoint = `https://randomuser.me/api/?results=${num}`;
 
-    let response = await superagent.get(endPoint);    
-
+    let response = await superagent.get(endPoint);
     var arr = [];
+
     from(response.body.results)
         .pipe(
             map((person) => {
-                return  { 
+                return  {
                         firstname: person.name.first,
                         lastname: person.name.last
                     };
@@ -19,10 +19,28 @@ async function getUsers(num = 10, callback) {
         )
         .subscribe(
             (obj) => {
-                arr.push(obj);                
+                arr.push(obj);
             }
         );
     callback(arr);
+}
+
+async function getObsUsers(num = 10, callback) {
+    let endPoint = `https://randomuser.me/api/?results=${num}`;
+
+    let response = await superagent.get(endPoint);
+    var arr = [];
+
+    const obs = from(response.body.results)
+        .pipe(
+            map((person) => {
+                return  {
+                        firstname: person.name.first,
+                        lastname: person.name.last
+                    };
+            })
+        );
+    callback(obs);
 }
 
 module.exports = {getUsers};

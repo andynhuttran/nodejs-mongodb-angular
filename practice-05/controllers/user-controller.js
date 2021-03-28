@@ -1,6 +1,8 @@
 const userRepository = require('../repo/user-repository');
 const { Readable } = require("stream")
-
+const { Observable } = require('rxjs');
+const { from } = require('rxjs');
+const { map } = require('rxjs/operators');
 
 function getUsers(req, res){
     setImmediate(getUserHelper, req, res);
@@ -9,10 +11,24 @@ function getUsers(req, res){
 function getUserHelper(request, response){
     setHeader(response);
 
-    userRepository.getUsers(5000, (data) => {
-        let json = JSON.stringify(data);
-        Readable.from(json).pipe(response);
-    });
+    if (false){ //get array from repo
+        userRepository.getUsers(5000, response, (data) => {
+            //response.json(data);
+            let json = JSON.stringify(data);
+            Readable.from(json).pipe(response);
+        });
+    }
+    else { //get obs from repo
+        userRepository.getUsers(5000, (observable) => {
+            //console.log(observable);
+            
+            observable.subscribe((person) => {
+                Readable.from(person).pipe(response);
+            });
+        });
+    }
+    
+    
 }
 
 function setHeader(response){
