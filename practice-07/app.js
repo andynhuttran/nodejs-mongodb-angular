@@ -3,11 +3,10 @@ const Constants = require('./utils/constants');
 const morgan = require('morgan');
 const serveIndex = require('serve-index');
 const helmet = require('helmet');
-
 const cors = require('cors');
-
-
 const userController = require('./controllers/studentController');
+
+
 
 
 const fs = require('fs');
@@ -23,7 +22,9 @@ app.use('/pictures', serveIndex('./assets/pics', {icon: true}));
 app.use(cors()); //accept all cors
 
 
-app.use('/students', userController.router)
+app.use('/students', userController.router);
+
+
 
 app.use(function(err, req, res, next) {
     res.status(404).json(err);

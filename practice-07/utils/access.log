@@ -138,3 +138,10 @@
 [0mDELETE /students/60 [32m200[0m 26.271 ms - 109[0m
 [0mDELETE /students/60 [33m404[0m 27.732 ms - 33[0m
 [0mDELETE /students/2 [32m200[0m 6.175 ms - 30[0m
+[0mDELETE /students/2 [33m404[0m 11.470 ms - 32[0m
+[0mGET /students [33m404[0m 0.754 ms - 2[0m
+[0mGET /students [33m404[0m 0.537 ms - 2[0m
+[0mGET /students [33m404[0m 4.397 ms - 2[0m
+[0mGET /students [33m404[0m 9.434 ms - 2[0m
+[0mGET /students [32m200[0m 11.542 ms - -[0m
+[0mGET /students [32m200[0m 11.879 ms - -[0m

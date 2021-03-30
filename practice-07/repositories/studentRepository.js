@@ -1,51 +1,37 @@
-const {MongoClient} = require('mongodb');
-const {URL} = require('../utils/constants');
+const database = require('../db/db');
 
-const client = new MongoClient(URL);
+let db = undefined;
+database.getDBConnection((dbObj) => {
+    console.log("In getDBConnection repo");
+    db = dbObj;
+});
 
 function addStudent(student, callback){
-    client.connect(function(err) {
-        let db = client.db("studentDB");
-        let studentCollection = db.collection("students");
-
-        studentCollection.insertMany([student]);
-        callback(student);
-    });
+    let studentCollection = db.collection("students");
+    studentCollection.insertMany([student]);
+    callback(student);
 }
 
 function getAll(callback){
-    client.connect(function(err) {
-        let db = client.db("studentDB");
-        let studentCollection = db.collection("students");
-
-        let dataSet = studentCollection.find();
-        callback(dataSet);
-    });
+    let studentCollection = db.collection("students");
+    let dataSet = studentCollection.find();
+    callback(dataSet);
 }
 
 function getById(id, callback){
-    client.connect(function(err) {
-        let db = client.db("studentDB");
-        let studentCollection = db.collection("students");
-
-        studentCollection.findOne({"id": id}).then((std => {
-            callback(std);
-        }));
-        
-    });
+    let studentCollection = db.collection("students");
+    studentCollection.findOne({"id": id})
+                        .then((std => {
+                            callback(std);
+                        }));
 
 }
 
 
 function deleteById(id, callback){
-    client.connect(function(err) {
-        let db = client.db("studentDB");
-        let studentCollection = db.collection("students");
-
-        studentCollection.deleteOne({"id": id}).then((result) => {
-            callback(result);
-        });
-        
+    let studentCollection = db.collection("students");
+    studentCollection.deleteOne({"id": id}).then((result) => {
+        callback(result);
     });
 }
 
