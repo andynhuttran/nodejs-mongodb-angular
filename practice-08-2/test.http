@@ -1,0 +1,52 @@
+###
+DELETE http://localhost:3000/locations
+
+###
+GET http://localhost:3000/locations
+
+###
+POST http://localhost:3000/locations HTTP/1.1
+content-type: application/json
+
+[
+    {
+        "name": "MIU", 
+        "category": "Office",
+        "location": [-91.9665342, 41.017654]
+    },
+    {
+        "name": "MIU Library", 
+        "category": "Office",
+        "location": [-91.969546, 41.0179144]
+    },
+    {
+        "name": "MIU School", 
+        "category": "Office",
+        "location": [-91.96883, 41.0162514]
+    },
+
+    {
+        "name": "Water park", 
+        "category": "Park",
+        "location": [-91.9585012, 41.0213342]
+    },
+    {
+        "name": "Utopia park", 
+        "category": "Park",
+        "location": [-91.9613758, 41.0242133]
+    }
+]
+
+###
+GET http://localhost:3000/locations/office HTTP/1.1
+
+
+###
+GET http://localhost:3000/locations/-91.96883/41.0162514 HTTP/1.1
+content-type: application/json
+
+{"limit": 2}
+
+
+###
+GET http://localhost:3000/locations/-91.96883/41.0162514/Office HTTP/1.1
