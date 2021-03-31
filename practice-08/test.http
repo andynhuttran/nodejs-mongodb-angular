@@ -44,10 +44,14 @@ content-type: application/json
 DELETE http://localhost:3000/schools/1/teachers/2 HTTP/1.1
 
 ###
-POST http://localhost:3000/schools/1/courses/2 HTTP/1.1
+POST http://localhost:3000/schools/1/courses/1 HTTP/1.1
 content-type: application/json
 
-{ "_id": 3, "name": "Fathi" } 
+{ "_id": 4, 
+    "name": "Andy", 
+    "address": { "street": "Utopia", "city": "FF","state": "Iowa" },
+    "years": [12, 13, 14, 20, 1]
+} 
 ###
 
 PATCH http://localhost:3000/schools/1/courses/2/3 HTTP/1.1
@@ -57,3 +61,21 @@ content-type: application/json
 
 ###
 DELETE http://localhost:3000/schools/1/courses/2/3 HTTP/1.1
+
+
+
+##########################
+GET http://localhost:3000
+
+##########################
+DELETE http://localhost:3000/schools/1/courses/1/4/Andy HTTP/1.1
+
+##########################
+POST http://localhost:3000/schools/1/courses/1 HTTP/1.1
+content-type: application/json
+
+{ "_id": 4, 
+    "name": "Andy", 
+    "address": { "street": "Utopia", "city": "FF","state": "Iowa" },
+    "years": [12, 13, 14, 20, 1]
+} 

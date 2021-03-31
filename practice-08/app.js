@@ -56,13 +56,14 @@ app.post('/schools/:school_id/teachers', async (req, res, next) => {
     try {
         let school_id = parseInt(req.params.school_id);
         let teacher = req.body;
-        let query = {"_id": school_id};
+        
         console.log({school_id, teacher, query});
         await req.db.updateOne(
-            query, 
+            {"_id": school_id}, 
             { $push: { teachers: teacher }}
-            );
+        );
 
+        let query = {"_id": school_id};
         let projector = {"teachers": 1};
         req.db.find(query, projector).toArray((err, data) => res.json(data));
     }
@@ -75,11 +76,11 @@ app.patch('/schools/:school_id/teachers/:teacher_id', async (req, res) => {
     // YOUR QUERY HERE
     let school_id = parseInt(req.params.school_id);
     let teacher_id = parseInt(req.params.teacher_id);
-    let teacher = req.body;
+    let name = req.body.name;
 
     await req.db.updateOne(
             {_id: school_id, "teachers._id": teacher_id}, //query by school and teacher.id
-            {$set: {"teachers.$.name": teacher.name}} //update teacher.name
+            {$set: {"teachers.$.name": name}} //update teacher.name
         );
 
     req.db.find({}).toArray((err, data) => res.json(data))
@@ -133,9 +134,19 @@ app.patch('/schools/:school_id/courses/:course_id/:student_id', async (req, res)
     console.log({school_id, course_id, student_id, student});
 
     await req.db.updateOne(
-        {"_id": school_id, "courses._id": course_id }, //detect course
-        { $set: { "courses.$.students.$[stu].name": student.name}}, //update name
-        { "arrayFilters": [{"stu._id": student_id}] }
+        // {"_id": school_id, "courses._id": course_id }, //detect course
+        // { $set: { "courses.$.students.$[stu].name": student.name}}, //update name
+        // { "arrayFilters": [{"stu._id": student_id}] }
+
+        {"_id": school_id }, //detect document
+        {$set: { "courses.$[courseFilter].students.$[studentFilter].name": student.name }},
+        {
+            "arrayFilters": [
+                {"courseFilter._id": course_id},
+                {"studentFilter._id": student_id},
+            ]
+        }
+
     );
 
     req.db.find({}).toArray((err, data) => res.json(data))
@@ -152,7 +163,29 @@ app.delete('/schools/:school_id/courses/:course_id/:student_id', async (req, res
 
     await req.db.updateOne(
         {"_id": school_id, "courses._id": course_id }, //detect course
-        { $pull: { "courses.$.students": {_id: student_id}}}, //delete name
+        { $pull: { "courses.$.students": {_id: student_id}}}, //delete student
+    );
+
+    req.db.find({}).toArray((err, data) => res.json(data))
+})
+
+
+//delete student by id + name
+// Update a student's name
+app.delete('/schools/:school_id/courses/:course_id/:student_id/:student_name', async (req, res) => {
+    // YOUR QUERY HERE  
+
+    let school_id = parseInt(req.params.school_id);
+    let course_id = parseInt(req.params.course_id);
+    let student_id = parseInt(req.params.student_id); 
+    let student_name = req.params.student_name;
+
+    console.log({school_id, course_id, student_id, student_name});
+
+
+    await req.db.updateOne(
+        {"_id": school_id, "courses._id": course_id }, //detect course
+        { $pull: { "courses.$.students": {_id: student_id }}}
     );
 
     req.db.find({}).toArray((err, data) => res.json(data))
