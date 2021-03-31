@@ -145,3 +145,5 @@
 [0mGET /students [33m404[0m 9.434 ms - 2[0m
 [0mGET /students [32m200[0m 11.542 ms - -[0m
 [0mGET /students [32m200[0m 11.879 ms - -[0m
+[0mGET /students [32m200[0m 11.405 ms - -[0m
+[0mGET /students [32m200[0m 11.590 ms - -[0m

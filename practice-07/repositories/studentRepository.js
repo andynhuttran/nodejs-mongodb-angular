@@ -1,7 +1,6 @@
 const database = require('../db/db');
 
-let db = undefined;
-database.getDBConnection((dbObj) => {
+let db = database.getDBConnection((dbObj) => {
     console.log("In getDBConnection repo");
     db = dbObj;
 });

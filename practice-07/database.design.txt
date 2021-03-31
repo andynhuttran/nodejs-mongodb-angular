@@ -1,0 +1,23 @@
+BookCollection = [
+	{
+		ISBN-number: "ABC"
+		author: "Mike",
+		keyworkd: ['abc', 'ab'],
+		qty: 5
+		borrowers: [
+			{name: 'Andy', studentId: 1, return-date: 'Apr 03 2021'},
+			{name: 'Cole', studentId: 2, return-date: 'Mar 28 2021'}
+		]
+	},
+	
+	{
+		ISBN-number: "XYZ"
+		author: "Mike",
+		keyworkd: ['xyz', 'yz'],
+		qty: 2
+		borrowers: [
+			{name: 'Andy', studentId: 1, return-date: 'Apr 05 2021'},
+			{name: 'Mike', studentId: 3, return-date: 'Mar 29 2021'}
+		]
+	},	
+]
