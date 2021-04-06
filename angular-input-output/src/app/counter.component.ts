@@ -42,7 +42,7 @@ export class CounterComponent implements OnInit {
 
   ngOnInit(){
     this.originalValue = this.counterValue; //back up
-    this.disableButton();    
+    this.btn.nativeElement.disabled = true; 
   }
 
   reset(){
