@@ -1,2 +1,19 @@
 <p>The title is: {{getTitle()}} </p>
 <p>{{getGrade()}}</p>
+
+<label>Input name</label>
+<input [(ngModel)]="name">
+<p>{{name}}</p>
+
+<p>---------Exercise-------------</p>
+<input [(ngModel)]="uid" (input)="handleInput()">
+<button [disabled]="!allowToReset" (click)="reset()">Reset</button>
+<p>{{uid}}</p>
+
+<p>---------Enhance-------------</p>
+<input [(ngModel)]="uid">
+<button [disabled]="uid === ''" (click)="uid = ''">Reset</button>
+<p>{{uid}}</p>
+
+
+
