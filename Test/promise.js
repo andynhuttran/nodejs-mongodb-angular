@@ -20,10 +20,11 @@ console.log("---------------");
 
 const promise = new Promise((resolve, reject) => {
     console.log("In promise 1");
-    setTimeout(
-        () => resolve("Promise result"),
-        100
-    );
+    // setTimeout(
+    //     () => resolve("Promise result"),
+    //     100
+    // );
+    resolve("Promise result");
     console.log("In promise 2");
 });
 
@@ -34,3 +35,12 @@ promise.then((result) => {
 });
 
 console.log("I love JS");
+
+/**
+ * ---------
+ * Code start
+ * promise 1
+ * promise 2
+ * I love JS
+ * Promise result
+ */

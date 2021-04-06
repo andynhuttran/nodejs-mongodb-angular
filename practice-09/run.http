@@ -1,0 +1,26 @@
+GET http://localhost:3000/us
+
+###
+POST http://localhost:3000/us
+content-type: application/json
+
+[
+    
+    {
+        "_id" : "44004", 
+        "city" : "Otumwa", 
+        "loc" : [ -91.957611, 41.003943 ], 
+        "pop" : 2000, 
+        "state" : "IA" 
+    }
+
+]
+
+###
+GET http://localhost:3000/zipcode?state=IA
+
+###
+GET http://localhost:3000/population?lt=2000
+
+###
+GET http://localhost:3000/sort?n=1
