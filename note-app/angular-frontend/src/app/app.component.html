@@ -1,0 +1,6 @@
+<home *ngIf="auth.userInfo; else loggedOut">
+</home>
+
+<ng-template #loggedOut>
+  <router-outlet></router-outlet>
+</ng-template>

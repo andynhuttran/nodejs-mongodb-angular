@@ -16,8 +16,7 @@ import { UserDetailComponent } from './users/user-detail.component';
     RouterModule.forRoot([
       {path: "", component: HomeComponent},
       {path: "users", loadChildren: () => import('./users/users.module').then(m => m.UsersModule)},
-      {path: "users/:id", component: UserDetailComponent},
-
+      {path: "users/:id", component: UserDetailComponent}
     ])
     
   ],

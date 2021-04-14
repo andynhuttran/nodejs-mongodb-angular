@@ -182,7 +182,6 @@ app.delete('/schools/:school_id/courses/:course_id/:student_id/:student_name', a
 
     console.log({school_id, course_id, student_id, student_name});
 
-
     await req.db.updateOne(
         {"_id": school_id, "courses._id": course_id }, //detect course
         { $pull: { "courses.$.students": {_id: student_id }}}

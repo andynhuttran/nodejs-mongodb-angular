@@ -7,7 +7,9 @@ import { UsersService } from './users.service';
     <p>Hello User Component</p>
     <ol>
      <li *ngFor="let item of data">
-        <a [routerLink]="['/users', item.login.uuid]" [state]="{user: item}">{{item.name.first}} {{item.name.last}}</a>
+        <a [routerLink]="['/users', item.login.uuid]" [state]="{user: item}">
+              {{item.name.first}} {{item.name.last}}
+        </a>
      </li>
     </ol>
   `
